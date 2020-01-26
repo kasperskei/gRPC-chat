@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package chat;
+
+service ChatService {
+  rpc Join(stream MessageRequest) returns (stream MessageResponse) {}
+}
+
+message MessageRequest {
+  string to = 1;
+  string text = 2;
+}
+
+message MessageResponse {
+  string from = 1;
+  string to = 2;
+  string text = 3;
+  int32 timestamp = 4;
+}

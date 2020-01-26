@@ -1,0 +1,16 @@
+{
+  "name": "grpc-chat",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "server": "node -r dotenv/config src/server.js",
+    "client": "node -r dotenv/config src/client.js"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0"
+  },
+  "dependencies": {
+    "@grpc/proto-loader": "^0.5.3",
+    "grpc": "^1.24.2"
+  }
+}
