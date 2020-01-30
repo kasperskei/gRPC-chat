@@ -3,6 +3,14 @@ const protoLoader = require('@grpc/proto-loader');
 
 const config = require('./config.js');
 
+const credentials = grpc.ServerCredentials.createSsl(
+  config.cert.root.chain,
+  [{
+    private_key: config.cert.server.key,
+    cert_chain: config.cert.server.chain,
+  }],
+  true,
+);
 const packageDefinition = protoLoader.loadSync(__dirname + '/chat.proto');
 const chatProto = grpc.loadPackageDefinition(packageDefinition).chat;
 
@@ -19,7 +27,7 @@ const main = () => {
   );
   server.bind(
     config.serverAddress,
-    grpc.ServerCredentials.createInsecure(),
+    credentials,
   );
   server.start();
 }

@@ -4,12 +4,17 @@ const readline = require('readline');
 
 const config = require('./config.js')
 
+const credentials = grpc.credentials.createSsl(
+  config.cert.root.chain,
+  config.cert.client.key,
+  config.cert.client.chain,
+);
 const packageDefinition = protoLoader.loadSync(__dirname + '/chat.proto');
 const chatProto = grpc.loadPackageDefinition(packageDefinition).chat;
 
 const client = new chatProto.ChatService(
   config.serverAddress,
-  grpc.credentials.createInsecure(),
+  credentials,
 );
 
 const rl = readline.createInterface({
